@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+import yfinance as yf
+import datetime
 
 st.set_page_config(
     layout="wide"   #設定成 wide
@@ -23,6 +25,38 @@ soup = BeautifulSoup(html_data2.text, 'html.parser')
 
 st.markdown("## 全球市值前20大公司")
 st.dataframe(news1[0].head(20), use_container_width=True)
+
+st.markdown("## 股價")
+stock_list = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'NVDA', 'META', 'TSM']
+for ticker in stock_list:
+    try:
+        stock = yf.Ticker(ticker)
+
+        # 取得即時價格
+        todays_data = stock.history(period="5d")  # 最近兩天
+        current_price = todays_data["Close"].iloc[-1]
+        prev_close = todays_data["Close"].iloc[-2]
+
+        # 計算漲跌幅
+        change = current_price - prev_close
+        pct_change = (change / prev_close) * 100
+
+        # 判斷顏色
+        color = "green" if change > 0 else "red"
+
+        # 顯示股價 + 漲跌幅
+        st.markdown(
+            f"""
+            <h>
+                {ticker} 最新股價: {current_price:.2f} USD
+                <span style="color:{color}">({change:+.2f}, {pct_change:+.2f}%)</span>
+            </h>
+            """,
+            unsafe_allow_html=True
+        )
+
+    except Exception as e:
+        st.error(f"取得股價資料失敗: {e}")
 
 st.markdown("## 即時財經新聞")
 titles =soup.find_all('p',class_='list-title t2a6dmk')
