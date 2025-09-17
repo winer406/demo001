@@ -22,12 +22,7 @@ news1 = pd.read_html(html_data1.text)
 soup = BeautifulSoup(html_data2.text, 'html.parser')
 
 st.markdown("## 全球市值前20大公司")
-<<<<<<< HEAD
-#st.write(news[0].head(10))
-st.dataframe(news1[0].head(10), use_container_width=True)
-=======
 st.dataframe(news1[0].head(20), use_container_width=True)
->>>>>>> 8ad23c21089746b8bcd959235768183adb0dba59
 
 st.markdown("## 即時財經新聞")
 titles =soup.find_all('p',class_='list-title t2a6dmk')
@@ -35,13 +30,5 @@ for title in titles:
     link = title.find('a')['href']
     url = "https://news.cnyes.com" + link
     text = title.text.strip()
-
-<<<<<<< HEAD
-    st.markdown(f"[{text}]({url})")
-=======
     st.markdown(f"[{text}]({url})")
 
-
-
-
->>>>>>> 8ad23c21089746b8bcd959235768183adb0dba59
