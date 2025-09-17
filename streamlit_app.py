@@ -1,8 +1,17 @@
 import streamlit as st
+import pandas as pd
+import requests
 
-st.title("Hello Streamlit-er 👋")
-if st.button("press me"):
-	st.write("you press me")
-else :
-	st.write("you don't press me")
+headers = {
+    "user-agent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+}
+
+url = "https://tw.tradingview.com/markets/world-stocks/worlds-largest-companies/"
+
+html_data = requests.get(url=url,headers=headers)
+news = pd.read_html(html_data)
+
+st.title("My News")
+st.write(news)
+
 
