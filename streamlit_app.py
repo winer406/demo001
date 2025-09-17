@@ -21,12 +21,11 @@ html_data2.encoding = 'utf-8'  # 確保中文顯示正常
 news1 = pd.read_html(html_data1.text)
 soup = BeautifulSoup(html_data2.text, 'html.parser')
 
-st.title("My News")
-
+st.markdown("## 全球市值前20大公司")
 st.dataframe(news1[0].head(20), use_container_width=True)
 
+st.markdown("## 即時財經新聞")
 titles =soup.find_all('p',class_='list-title t2a6dmk')
-
 for title in titles:
     link = title.find('a')['href']
     url = "https://news.cnyes.com" + link
