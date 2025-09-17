@@ -12,6 +12,7 @@ html_data = requests.get(url=url,headers=headers)
 news = pd.read_html(html_data.text)
 
 st.title("My News")
-st.write(news)
+st.dataframe(news[0], use_container_width=True)
+
 
 
