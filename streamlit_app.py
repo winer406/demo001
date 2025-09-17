@@ -9,7 +9,7 @@ headers = {
 url = "https://tw.tradingview.com/markets/world-stocks/worlds-largest-companies/"
 
 html_data = requests.get(url=url,headers=headers)
-news = pd.read_html(html_data)
+news = pd.read_html(html_data.text)
 
 st.title("My News")
 st.write(news)
