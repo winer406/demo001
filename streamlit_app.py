@@ -30,10 +30,9 @@ st.markdown("## 股價")
 stock_list = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'NVDA', 'META', 'TSM']
 for ticker in stock_list:
     try:
-        stock = yf.Ticker(ticker)
 
         # 取得即時價格
-        todays_data = yf.download(tickers=stock,period="2d")  # 最近兩天
+        todays_data = yf.download(tickers=ticker,period="2d")  # 最近兩天
         current_price = todays_data["Close"].iloc[-1]
         prev_close = todays_data["Close"].iloc[-2]
 
