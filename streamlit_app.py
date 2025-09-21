@@ -33,8 +33,8 @@ for ticker in stock_list:
 
         # 取得即時價格
         todays_data = yf.download(tickers=ticker,period="2d")  # 最近兩天
-        current_price = todays_data["Close"].iloc[-1]
-        prev_close = todays_data["Close"].iloc[-2]
+        current_price = todays_data["Close"].iloc[-1].item()
+        prev_close = todays_data["Close"].iloc[-2].item()
 
         # 計算漲跌幅
         change = current_price - prev_close
